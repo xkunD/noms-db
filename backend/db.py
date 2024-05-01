@@ -11,19 +11,22 @@ class User(db.Model):
     __tablename__= "user"
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
-    profile_pic = db.Column(db.String, nullable=False)
+    username= db.Column(db.String, nullable=False)
+    profile_pic = db.Column(db.String)
     posts = db.relationship('Post', backref='user', lazy=True)
     saved_posts = db.relationship('Post', secondary='saved_posts', lazy='subquery',
                                   backref=db.backref('saved_by', lazy=True))
     def __init__(self, **kwargs):
-        self.name= kwargs.get("username")
+        self.name= kwargs.get("name")
+        self.username= kwargs.get("username")
         self.profile_pic= kwargs.get("profile_pic")
     
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
-            'profile_pic': self.profile_pic(db.String, nullable=False)
+            'username': self.username,
+            'profile_pic': self.profile_pic
         }
 
 
@@ -66,8 +69,18 @@ class SavedPost(db.Model):
         ORM model for saved posts
     """
     __tablename__ = 'saved_posts'
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), primary_key=True)
+
+    def __init__(self, **kwargs):
+        self.user_id= kwargs.get("user_id")
+        self.post_id= kwargs.get("post_id")
+    
+    def serialize(self):
+        return {
+            "user_id": self.user_id,
+            "post_id": self.post_id
+        }
 
 
 class MealPlan(db.Model):
@@ -76,10 +89,16 @@ class MealPlan(db.Model):
     """
     __tablename__ = 'meal_plans'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     type = db.Column(db.String, nullable=False)
     date = db.Column(db.String, nullable=False)
+
+    def __init__(self, **kwargs):
+        self.user_id= kwargs.get("user_id")
+        self.post_id= kwargs.get("post_id")
+        self.type= kwargs.get("type")
+        self.date= kwargs.get("date")
 
     def serialize(self):
         return {
