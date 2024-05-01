@@ -1,0 +1,6 @@
+# Backend git ignore
+venv/
+__pycache__/
+.DS_Store
+instance/
+main.db
