@@ -5,7 +5,7 @@
 - Kevin Huang
 - Xiaokun Du
 
-Values wrapped in `< >` are placeholders for what the field values should be. 
+Values wrapped in `&lt; &gt;` are placeholders for what the field values should be. 
 
 ## Expected Functionality
 
@@ -16,10 +16,10 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     {
         "users": [
             {
-                "id": <ID>,
-                "name": <USER NAME>,
-                "username": <USERNAME>,
-                "profile_pic": <PROFILE PIC URL>
+                "id": &lt;ID&gt;,
+                "name": &lt;USER NAME&gt;,
+                "username": &lt;USERNAME&gt;,
+                "profile_pic": &lt;PROFILE PIC URL&gt;
             },
             ...
         ]
@@ -39,7 +39,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
   - **Response** (HTTP STATUS CODE 201)
     ```json
     {
-        "id": <ID>,
+        "id": &lt;ID&gt;,
         "name": "John Doe",
         "username": "johndoe",
         "profile_pic": "https://example.com/profile.jpg"
@@ -47,31 +47,31 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     ```
 
 ### Get User by ID
-- **GET** `/api/users/<id>/`
+- **GET** `/api/users/&lt;id&gt;/`
   - **Response** (HTTP STATUS CODE 200)
     ```json
     {
-        "id": <ID>,
-        "name": <USER NAME>,
-        "username": <USERNAME>,
-        "profile_pic": <PROFILE PIC URL>
+        "id": &lt;ID&gt;,
+        "name": &lt;USER NAME&gt;,
+        "username": &lt;USERNAME&gt;,
+        "profile_pic": &lt;PROFILE PIC URL&gt;
     }
     ```
 
 ### Get User's Posts
-- **GET** `/api/users/<id>/posts/`
+- **GET** `/api/users/&lt;id&gt;/posts/`
   - **Response** (HTTP STATUS CODE 200)
     ```json
     {
         "Posts": [
             {
-                "id": <ID>,
-                "title": <POST TITLE>,
-                "description": <DESCRIPTION>,
-                "image": <IMAGE URL>,
-                "meal_type": <MEAL TYPE>,
-                "date": <DATE>,
-                "user_id": <USER ID>
+                "id": &lt;ID&gt;,
+                "title": &lt;POST TITLE&gt;,
+                "description": &lt;DESCRIPTION&gt;,
+                "image": &lt;IMAGE URL&gt;,
+                "meal_type": &lt;MEAL TYPE&gt;,
+                "date": &lt;DATE&gt;,
+                "user_id": &lt;USER ID&gt;
             },
             ...
         ]
@@ -79,24 +79,24 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     ```
 
 ### Add User Saved Post
-- **POST** `/api/users/<id>/saved_post/<post_id>/`
+- **POST** `/api/users/&lt;id&gt;/saved_post/&lt;post_id&gt;/`
   - **Response** (HTTP STATUS CODE 201)
     ```json
     {
-        "user_id": <USER ID>,
-        "post_id": <POST ID>
+        "user_id": &lt;USER ID&gt;,
+        "post_id": &lt;POST ID&gt;
     }
     ```
 
 ### Get User Saved Posts
-- **GET** `/api/users/<id>/saved_post/`
+- **GET** `/api/users/&lt;id&gt;/saved_post/`
   - **Response** (HTTP STATUS CODE 200)
     ```json
     {
         "saved_post": [
             {
-                "user_id": <USER ID>,
-                "post_id": <POST ID>
+                "user_id": &lt;USER ID&gt;,
+                "post_id": &lt;POST ID&gt;
             },
             ...
         ]
@@ -108,8 +108,8 @@ Values wrapped in `< >` are placeholders for what the field values should be.
   - **Request**
     ```json
     {
-        "user_id": <USER ID>,
-        "post_id": <POST ID>,
+        "user_id": &lt;USER ID&gt;,
+        "post_id": &lt;POST ID&gt;,
         "meal_type": "Breakfast",
         "date": "2022-05-20"
     }
@@ -117,21 +117,21 @@ Values wrapped in `< >` are placeholders for what the field values should be.
   - **Response** (HTTP STATUS CODE 201)
     ```json
     {
-        "id": <MEAL PLAN ID>,
-        "user_id": <USER ID>,
-        "post_id": <POST ID>,
+        "id": &lt;MEAL PLAN ID&gt;,
+        "user_id": &lt;USER ID&gt;,
+        "post_id": &lt;POST ID&gt;,
         "type": "Breakfast",
         "date": "2022-05-20"
     }
     ```
 
 ### Update Meal Plan
-- **POST** `/api/mealplan/<id>/`
+- **POST** `/api/mealplan/&lt;id&gt;/`
   - **Request**
     ```json
     {
-        "user_id": <USER ID>,
-        "post_id": <POST ID>,
+        "user_id": &lt;USER ID&gt;,
+        "post_id": &lt;POST ID&gt;,
         "meal_type": "Lunch",
         "date": "2022-05-21"
     }
@@ -139,16 +139,16 @@ Values wrapped in `< >` are placeholders for what the field values should be.
   - **Response** (HTTP STATUS CODE 200)
     ```json
     {
-        "id": <MEAL PLAN ID>,
-        "user_id": <USER ID>,
-        "post_id": <POST ID>,
+        "id": &lt;MEAL PLAN ID&gt;,
+        "user_id": &lt;USER ID&gt;,
+        "post_id": &lt;POST ID&gt;,
         "type": "Lunch",
         "date": "2022-05-21"
     }
     ```
     
 ### Get User's Meal Plan
-- **GET** `/api/users/<id>/mealplan/<meal_id>/`
+- **GET** `/api/users/&lt;id&gt;/mealplan/&lt;meal_id&gt;/`
   - **Response** (HTTP STATUS CODE )
     ```json
     {
@@ -157,7 +157,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     ```
 
 ### Get User's Current Week Meal Plan
-- **GET** `/api/users/<id>/mealplan/`
+- **GET** `/api/users/&lt;id&gt;/mealplan/`
   - **Response** (HTTP STATUS CODE )
     ```json
     {
@@ -176,18 +176,18 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "image": "https://example.com/burger.jpg",
         "meal_type": "Dinner",
         "date": "2022-05-22",
-        "user_id": <USER ID>
+        "user_id": &lt;USER ID&gt;
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
     ```json
     {
-        "id": <POST ID>,
+        "id": &lt;POST ID&gt;,
         "title": "Delicious Vegan Burger",
         "description": "A healthy and tasty burger that's completely vegan!",
         "image": "https://example.com/burger.jpg",
         "meal_type": "Dinner",
         "date": "2022-05-22",
-        "user_id": <USER ID>
+        "user_id": &lt;USER ID&gt;
     }
     ```
