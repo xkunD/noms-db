@@ -146,6 +146,25 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "date": "2022-05-21"
     }
     ```
+    
+### Get User's Meal Plan
+- **GET** `/api/users/<id>/mealplan/<meal_id>/`
+  - **Response** (HTTP STATUS CODE )
+    ```json
+    {
+        pass
+    }
+    ```
+
+### Get User's Current Week Meal Plan
+- **GET** `/api/users/<id>/mealplan/`
+  - **Response** (HTTP STATUS CODE )
+    ```json
+    {
+        pass
+    }
+    ```
+
 
 ### Add Post
 - **POST** `/api/posts/`
