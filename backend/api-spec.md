@@ -188,6 +188,6 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "image": "https://example.com/burger.jpg",
         "meal_type": "Dinner",
         "date": "2022-05-22",
-        "user_id": "<USER ID>"
+        "user_id": <USER ID>
     }
     ```
