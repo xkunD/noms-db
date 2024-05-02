@@ -12,7 +12,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Get All Users
 - **GET** `/api/users/`
   - **Response** (HTTP STATUS CODE 200)
-    ```
+    ```json
     {
         "users": [
             {
@@ -29,7 +29,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Create a User
 - **POST** `/api/users/`
   - **Request**
-    ```
+    ```json
     {
         "name": "John Doe",
         "username": "johndoe",
@@ -37,7 +37,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```
+    ```json
     {
         "id": <ID>,
         "name": "John Doe",
@@ -49,7 +49,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Get User by ID
 - **GET** `/api/users/<id>/`
   - **Response** (HTTP STATUS CODE 200)
-    ```
+    ```json
     {
         "id": <ID>,
         "name": <USER NAME>,
@@ -61,7 +61,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Get User's Posts
 - **GET** `/api/users/<id>/posts/`
   - **Response** (HTTP STATUS CODE 200)
-    ```
+    ```json
     {
         "Posts": [
             {
@@ -81,7 +81,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Add User Saved Post
 - **POST** `/api/users/<id>/saved_post/<post_id>/`
   - **Response** (HTTP STATUS CODE 201)
-    ```
+    ```json
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>
@@ -91,7 +91,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Get User Saved Posts
 - **GET** `/api/users/<id>/saved_post/`
   - **Response** (HTTP STATUS CODE 200)
-    ```
+    ```json
     {
         "saved_post": [
             {
@@ -106,7 +106,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Add Meal Plan
 - **POST** `/api/mealplan/`
   - **Request**
-    ```
+    ```json
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>,
@@ -115,7 +115,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```
+    ```json
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -128,7 +128,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Update Meal Plan
 - **POST** `/api/mealplan/<id>/`
   - **Request**
-    ```
+    ```json
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>,
@@ -137,7 +137,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     }
     ```
   - **Response** (HTTP STATUS CODE 200)
-    ```
+    ```json
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -150,7 +150,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
 ### Add Post
 - **POST** `/api/posts/`
   - **Request**
-    ```
+    ```json
     {
         "title": "Delicious Vegan Burger",
         "description": "A healthy and tasty burger that's completely vegan!",
@@ -161,7 +161,7 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```
+    ```json
     {
         "id": <POST ID>,
         "title": "Delicious Vegan Burger",
