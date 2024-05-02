@@ -1,7 +1,8 @@
 version: "3"
 
 services:
-  munch:
-    image: henry262799/munch:v1
-    ports: "8000:8000"
+  noms:
+    image: henry262799/noms:latest
+    ports: 
+     - "80:8000"
 
