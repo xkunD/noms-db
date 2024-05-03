@@ -144,22 +144,36 @@ def add_mealplan():
     
     info=json.loads(request.data)
     user_id= info.get("user_id")
-    post_id= info.get("post_id")
-    meal_type= info.get("meal_type")
+    breakfast_id= info.get("breakfast_id")
+    lunch_id= info.get("lunch_id")
+    dinner_id= info.get("dinner_id")
     date= info.get("date")
 
-    field_present= not user_id or not post_id or not meal_type or not date
+    meals=[breakfast_id, lunch_id, dinner_id]
+    one_valid_id= False
+    for id in meals:
+        if id is not None:
+            one_valid_id=True
 
-    if field_present:
+    field_unpresent= not user_id or not date or not one_valid_id
+
+    if field_unpresent:
         return failure_response({"Error": "Missing fields for a mealplan"}, 400)
     
+    
     user= db.session.get(User, int(user_id))
-    post= db.session.get(Post, int(post_id))
+    valid= True
+    for id in meals:
+        if id is not None:
+            post_info= db.session.get(Post, int(id))
+            if not post_info:
+                valid=False
+    
 
-    if not user or not post:
-        return failure_response({"Error": "The user or post could not be found on the server"}, 404)
+    if not user or not valid:
+        return failure_response({"Error": "The user could not be found or a post could not found for the meal."}, 404)
 
-    new_mealplan= MealPlan(user_id=user_id, post_id=post_id, type=meal_type, date=date)
+    new_mealplan= MealPlan(user_id=user_id, breakfast_id=breakfast_id, lunch_id=lunch_id, dinner_id=dinner_id, date=date)
 
     db.session.add(new_mealplan)
     db.session.commit()
@@ -169,27 +183,37 @@ def add_mealplan():
 @app.route("/api/mealplan/<id>/", methods=["POST"])
 def update_user_mealplan(id):
     
-    info= json.loads(request.data)
-    user_id= info.get("user_id")
-    post_id= info.get("post_id")
-    meal_type= info.get("meal_type")
+    info=json.loads(request.data)
+    breakfast_id= info.get("breakfast_id")
+    lunch_id= info.get("lunch_id")
+    dinner_id= info.get("dinner_id")
     date= info.get("date")
 
-    fields_present= not user_id or not post_id or not meal_type or not date
+    meals=[breakfast_id, lunch_id, dinner_id]
+    one_valid_id= False
+    for id in meals:
+        if id is not None:
+            one_valid_id=True
 
-    if fields_present:
-        return failure_response({"Error": "Missing fields user_id or post_id or meal_type or date"}, 400)
-    
-    user= db.session.get(User, int(user_id))
-    post= db.session.get(Post, int(post_id))
+    field_unpresent= not date or not one_valid_id
 
-    if not user or not post:
-        return failure_response({"Error": "The user or post could not be found on the server"}, 404)
+    if field_unpresent:
+        return failure_response({"Error": "Missing fields to update a mealplan"}, 400)
     
+    valid= True
+    for id in meals:
+        if id is not None:
+            post_info= db.session.get(Post, int(id))
+            if not post_info:
+                valid=False
+
+    if not valid:
+        return failure_response({"Error": "A post could not be found for the meal."}, 404)
+
     mealplan= MealPlan.query.filter(MealPlan.id==id).first()
-    mealplan.user_id= user_id
-    mealplan.post_id= post_id
-    mealplan.type= meal_type
+    mealplan.breakfast_id= breakfast_id
+    mealplan.lunch_id= lunch_id
+    mealplan.dinner_id= dinner_id
     mealplan.date= date
 
     db.session.commit()
@@ -227,9 +251,6 @@ def get_user_currweek_mealplan(id):
     
     return success_response(currweek_mealplan, 200)
 
-
-
-
 @app.route("/api/posts/", methods=["POST"])
 def add_post():
     info=json.loads(request.data)
@@ -252,6 +273,14 @@ def add_post():
 
     return success_response(new_post.serialize(), 201)
 
+@app.route("/api/posts/", methods=["GET"])
+def get_all_post():
+    all_post=[]
+
+    for post in Post.query.all():
+        all_post.append(post.serialize())
+    
+    return success_response({"posts": all_post}, 200)
 
 
 

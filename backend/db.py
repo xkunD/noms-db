@@ -90,21 +90,24 @@ class MealPlan(db.Model):
     __tablename__ = 'meal_plans'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
-    type = db.Column(db.String, nullable=False)
+    breakfast_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    lunch_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    dinner_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     date = db.Column(db.String, nullable=False)
 
     def __init__(self, **kwargs):
         self.user_id= kwargs.get("user_id")
-        self.post_id= kwargs.get("post_id")
-        self.type= kwargs.get("type")
+        self.breakfast_id= kwargs.get("breakfast_id")
+        self.lunch_id= kwargs.get("lunch_id")
+        self.dinner_id= kwargs.get("dinner_id")
         self.date= kwargs.get("date")
 
     def serialize(self):
         return {
             'id': self.id,
             'user_id': self.user_id,
-            'post_id': self.post_id,
-            'type': self.type,
+            "breakfast_id": self.breakfast_id,
+            "lunch_id": self.lunch_id,
+            "dinner_id": self.dinner_id,
             'date': self.date
         }
