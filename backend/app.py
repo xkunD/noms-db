@@ -114,11 +114,17 @@ def get_user_posts(id):
     
     return success_response({"Posts": serialized_post}, 200)
 
-@app.route("/api/users/<id>/saved_post/<post_id>/", methods=["POST"])
-def add_user_saved_post(id, post_id):
+@app.route("/api/users/<id>/saved_post/", methods=["POST"])
+def add_user_saved_post(id):
+
+    info= json.loads(request.data)
+    post_id= info.get("post_id")
+
+    if post_id==None:
+        return failure_response({"Error": "Missing post_id field"}, 400)
 
     user= db.session.get(User, id)
-    post= db.session.get(Post, post_id)
+    post= db.session.get(Post, int(post_id))
 
     if not user or not post:
         return failure_response({"Error": "User or post could not be found on the server"}, 404)
@@ -219,7 +225,7 @@ def update_user_mealplan(id):
     db.session.commit()
     return success_response(mealplan.serialize(), 200)
     
-@app.route("/api/mealplan/<id>/")
+@app.route("/api/mealplan/<id>/", methods=["GET"])
 def get_mealplan(id):
     
     mealplan= MealPlan.query.filter(MealPlan.id==id).first()
@@ -229,7 +235,7 @@ def get_mealplan(id):
     
     return success_response(mealplan.serialize(), 200)
 
-@app.route("/api/users/<id>/mealplan/")
+@app.route("/api/users/<id>/mealplan/", methods=["GET"])
 def get_user_currweek_mealplan(id):
     
     today= datetime.date.today()
