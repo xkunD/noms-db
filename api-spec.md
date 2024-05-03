@@ -5,7 +5,7 @@
 - Kevin Huang
 - Xiaokun Du
 
-Values wrapped in `< >` are placeholders for what the field values should be. 
+Values wrapped in `< >` are placeholders for actual field values.
 
 ## Expected Functionality
 
@@ -45,6 +45,12 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "profile_pic": "https://example.com/profile.jpg"
     }
     ```
+  - If name or username is not provided, response (HTTP STATUS CODE 400)
+    ```json
+    {
+        "Error": "name or username field not provided"
+    }
+    ```
 
 ### Get User by ID
 - **GET** `/api/users/<id>/`
@@ -55,6 +61,12 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "name": <USER NAME>,
         "username": <USERNAME>,
         "profile_pic": <PROFILE PIC URL>
+    }
+    ```
+  - If user does not exist, response (HTTP STATUS CODE 404)
+    ```json
+    {
+        "Error": "The requested user could not be found"
     }
     ```
 
@@ -77,6 +89,12 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         ]
     }
     ```
+  - If user does not exist, response (HTTP STATUS CODE 404)
+    ```json
+    {
+        "Error": "The requested user could not be found on the server"
+    }
+    ```
 
 ### Add User Saved Post
 - **POST** `/api/users/<id>/saved_post/<post_id>/`
@@ -85,6 +103,12 @@ Values wrapped in `< >` are placeholders for what the field values should be.
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>
+    }
+    ```
+  - If user or post does not exist, response (HTTP STATUS CODE 404)
+    ```json
+    {
+        "Error": "User or post could not be found on the server"
     }
     ```
 
@@ -124,6 +148,12 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "date": "2022-05-20"
     }
     ```
+  - If any required field is missing, or the user or post does not exist, response (HTTP STATUS CODE 400 or 404 respectively)
+    ```json
+    {
+        "Error": "Missing fields for a mealplan" // or "The user or post could not be found on the server"
+    }
+    ```
 
 ### Update Meal Plan
 - **POST** `/api/mealplan/<id>/`
@@ -146,25 +176,38 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "date": "2022-05-21"
     }
     ```
-    
-### Get User's Meal Plan
-- **GET** `/api/users/<id>/mealplan/<meal_id>/`
-  - **Response** (HTTP STATUS CODE )
+
+### Get User's Meal Plan by ID
+- **GET** `/api/mealplan/<id>/`
+  - **Response** (HTTP STATUS CODE 200)
     ```json
     {
-        pass
+        "id": <MEAL PLAN ID>,
+        "user_id": <USER ID>,
+        "post_id": <POST ID>,
+        "type": <MEAL TYPE>,
+        "date": <DATE>
+    }
+    ```
+  - If meal plan does not exist, response (HTTP STATUS CODE 404)
+    ```json
+    {
+        "Error": "The resource could not be found on the server"
     }
     ```
 
 ### Get User's Current Week Meal Plan
 - **GET** `/api/users/<id>/mealplan/`
-  - **Response** (HTTP STATUS CODE )
+  - **Response** (HTTP STATUS CODE 200)
     ```json
     {
-        pass
+        "id": <MEAL PLAN ID>,
+        "user_id": <USER ID>,
+        "post_id": <POST ID>,
+        "type": <MEAL TYPE>,
+        "date": <DATE>
     }
     ```
-
 
 ### Add Post
 - **POST** `/api/posts/`
@@ -189,5 +232,11 @@ Values wrapped in `< >` are placeholders for what the field values should be.
         "meal_type": "Dinner",
         "date": "2022-05-22",
         "user_id": <USER ID>
+    }
+    ```
+  - If required fields are missing, response (HTTP STATUS CODE 400)
+    ```json
+    {
+        "Error": "Missing required fields for a post"
     }
     ```
