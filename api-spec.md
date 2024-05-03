@@ -12,7 +12,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get All Users
 - **GET** `/api/users/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "users": [
             {
@@ -29,7 +29,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Create a User
 - **POST** `/api/users/`
   - **Request**
-    ```json
+    ```YAML
     {
         "name": "John Doe",
         "username": "johndoe",
@@ -37,7 +37,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```json
+    ```YAML
     {
         "id": <ID>,
         "name": "John Doe",
@@ -46,7 +46,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If name or username is not provided, response (HTTP STATUS CODE 400)
-    ```json
+    ```YAML
     {
         "Error": "name or username field not provided"
     }
@@ -55,7 +55,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get User by ID
 - **GET** `/api/users/<id>/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "id": <ID>,
         "name": <USER NAME>,
@@ -64,7 +64,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If user does not exist, response (HTTP STATUS CODE 404)
-    ```json
+    ```YAML
     {
         "Error": "The requested user could not be found"
     }
@@ -73,7 +73,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get User's Posts
 - **GET** `/api/users/<id>/posts/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "Posts": [
             {
@@ -90,7 +90,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If user does not exist, response (HTTP STATUS CODE 404)
-    ```json
+    ```YAML
     {
         "Error": "The requested user could not be found on the server"
     }
@@ -99,14 +99,14 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Add User Saved Post
 - **POST** `/api/users/<id>/saved_post/<post_id>/`
   - **Response** (HTTP STATUS CODE 201)
-    ```json
+    ```YAML
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>
     }
     ```
   - If user or post does not exist, response (HTTP STATUS CODE 404)
-    ```json
+    ```YAML
     {
         "Error": "User or post could not be found on the server"
     }
@@ -115,7 +115,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get User Saved Posts
 - **GET** `/api/users/<id>/saved_post/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "saved_post": [
             {
@@ -130,7 +130,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Add Meal Plan
 - **POST** `/api/mealplan/`
   - **Request**
-    ```json
+    ```YAML
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>,
@@ -139,7 +139,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```json
+    ```YAML
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -149,7 +149,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If any required field is missing, or the user or post does not exist, response (HTTP STATUS CODE 400 or 404 respectively)
-    ```json
+    ```YAML
     {
         "Error": "Missing fields for a mealplan" // or "The user or post could not be found on the server"
     }
@@ -158,7 +158,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Update Meal Plan
 - **POST** `/api/mealplan/<id>/`
   - **Request**
-    ```json
+    ```YAML
     {
         "user_id": <USER ID>,
         "post_id": <POST ID>,
@@ -167,7 +167,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -180,7 +180,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get User's Meal Plan by ID
 - **GET** `/api/mealplan/<id>/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -190,7 +190,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If meal plan does not exist, response (HTTP STATUS CODE 404)
-    ```json
+    ```YAML
     {
         "Error": "The resource could not be found on the server"
     }
@@ -199,7 +199,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Get User's Current Week Meal Plan
 - **GET** `/api/users/<id>/mealplan/`
   - **Response** (HTTP STATUS CODE 200)
-    ```json
+    ```YAML
     {
         "id": <MEAL PLAN ID>,
         "user_id": <USER ID>,
@@ -212,7 +212,7 @@ Values wrapped in `< >` are placeholders for actual field values.
 ### Add Post
 - **POST** `/api/posts/`
   - **Request**
-    ```json
+    ```YAML
     {
         "title": "Delicious Vegan Burger",
         "description": "A healthy and tasty burger that's completely vegan!",
@@ -223,7 +223,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - **Response** (HTTP STATUS CODE 201)
-    ```json
+    ```YAML
     {
         "id": <POST ID>,
         "title": "Delicious Vegan Burger",
@@ -235,7 +235,7 @@ Values wrapped in `< >` are placeholders for actual field values.
     }
     ```
   - If required fields are missing, response (HTTP STATUS CODE 400)
-    ```json
+    ```YAML
     {
         "Error": "Missing required fields for a post"
     }
