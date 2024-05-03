@@ -5,6 +5,7 @@ from db import User
 from db import Post
 from db import SavedPost
 from db import MealPlan
+import datetime
 
 # main.db file should be on the docker image and hosted on the server. 
 # Access should not be a public repository for security.
@@ -192,20 +193,42 @@ def update_user_mealplan(id):
     mealplan.date= date
 
     db.session.commit()
-    # updated_mealplan= MealPlan.query.filter(MealPlan.id==id).first()
     return success_response(mealplan.serialize(), 200)
     
+@app.route("/api/mealplan/<id>/")
+def get_mealplan(id):
     
+    mealplan= MealPlan.query.filter(MealPlan.id==id).first()
 
-@app.route("/api/users/<id>/mealplan/<meal_id>/")
-def get_user_mealplan(id, meal_id):
-    pass
+    if not mealplan:
+        return failure_response({"Error": "The resource could not be found on the server"}, 404)
+    
+    return success_response(mealplan.serialize(), 200)
 
 @app.route("/api/users/<id>/mealplan/")
-def get_user_currweek_mealplan():
-    # Use time.now and figure out the start of the week and the end of the week.
-    # For a given user find the days in this range and then map from sunday to saturday correctly
-    pass
+def get_user_currweek_mealplan(id):
+    
+    today= datetime.date.today()
+    start_of_week = today - datetime.timedelta(days=today.weekday()+1)
+    end_of_week = start_of_week + datetime.timedelta(days=6)
+    week_range = []
+    for day in range((end_of_week - start_of_week).days + 1):
+        date = start_of_week + datetime.timedelta(days=day)
+        week_range.append(date.strftime("%m/%d/%y"))
+    
+    currweek_mealplan=[]
+    for date in week_range:
+        # Can only be one result but structure for app is weird.
+        mealplan= MealPlan.query.filter(db.and_(MealPlan.user_id==id, MealPlan.date==date)).first()
+        if not mealplan:
+            currweek_mealplan.append(None)
+        else:
+            currweek_mealplan.append(mealplan.serialize())
+    
+    return success_response(currweek_mealplan, 200)
+
+
+
 
 @app.route("/api/posts/", methods=["POST"])
 def add_post():
