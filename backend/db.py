@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 class User(db.Model):
     """
-        ORM model for Users
+        ORM model for Users.
     """
 
     __tablename__= "user"
@@ -22,6 +22,14 @@ class User(db.Model):
         self.profile_pic= kwargs.get("profile_pic")
     
     def serialize(self):
+        """
+            Serialize user object to be JSON compatible.
+
+            Returns
+            ----------
+            dict: dict
+                Dict with the fields of the user.
+        """
         return {
             'id': self.id,
             'name': self.name,
@@ -32,7 +40,7 @@ class User(db.Model):
 
 class Post(db.Model):
     """
-        ORM model for a Post
+        ORM model for a Post.
     """
 
     __tablename__="post"
@@ -54,6 +62,14 @@ class Post(db.Model):
         self.user_id= kwargs.get("user_id")
     
     def serialize(self):
+        """
+            Serialize the post object to be JSON compatible.
+
+            Returns
+            -----------
+            dict: dict
+                Dict with the fields of the post.
+        """
         return {
             'id': self.id,
             'title': self.title,
@@ -66,7 +82,7 @@ class Post(db.Model):
 
 class SavedPost(db.Model):
     """
-        ORM model for saved posts
+        ORM model for saved posts.
     """
     __tablename__ = 'saved_posts'
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
@@ -77,15 +93,22 @@ class SavedPost(db.Model):
         self.post_id= kwargs.get("post_id")
     
     def serialize(self):
+        """
+            Serialize a savedpost to be JSON compatible.
+
+            Returns
+            -----------
+            dict: dict
+                dict with the fields of a saved post.
+        """
         return {
             "user_id": self.user_id,
             "post_id": self.post_id
         }
 
-
 class MealPlan(db.Model):
     """
-        ORM model for meal plan
+        ORM model for meal plan.
     """
     __tablename__ = 'meal_plans'
     id = db.Column(db.Integer, primary_key=True)
@@ -103,6 +126,14 @@ class MealPlan(db.Model):
         self.date= kwargs.get("date")
 
     def serialize(self):
+        """
+            Serialize mealplan to be json compatible.
+
+            Returns
+            ------------
+            dict: dict
+                dict containing the fields of a mealplan.
+        """
         return {
             'id': self.id,
             'user_id': self.user_id,

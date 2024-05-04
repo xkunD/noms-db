@@ -7,8 +7,6 @@ from db import SavedPost
 from db import MealPlan
 import datetime
 
-# main.db file should be on the docker image and hosted on the server. 
-# Access should not be a public repository for security.
 app = Flask(__name__)
 db_filename = "main.db"
 BLANK_PROFILE_URL="https://ibb.co/fqjBRDL"
@@ -63,6 +61,15 @@ def failure_response(err_message,code=404):
 
 @app.route("/api/users/", methods=["GET"])
 def get_all_users():
+    """
+        Retrieves all users.
+
+        Returns
+        ------------
+
+        json: JSON
+            HTTP Response with information on all users.
+    """
     
     all_users=[]
 
@@ -73,6 +80,15 @@ def get_all_users():
 
 @app.route("/api/users/", methods=["POST"])
 def add_user():
+    """
+        Add a user
+
+        Returns
+        -----------
+
+        json: JSON
+            Http response with the information of the added user.
+    """
     info= json.loads(request.data)
     name= info.get("name")
     username= info.get("username")
@@ -91,6 +107,19 @@ def add_user():
 
 @app.route("/api/users/<id>/", methods=["GET"])
 def get_user_by_id(id):
+    """
+        Retrieve the user with id, id
+
+        Parameters
+        --------------
+        id: int
+            id of the user to retrieve.
+
+        Returns
+        --------------
+        json: JSON
+            HTTP response with information on the user with id, id.
+    """
     
     user=db.session.get(User, id)
 
@@ -101,6 +130,19 @@ def get_user_by_id(id):
 
 @app.route("/api/users/<id>/posts/", methods=["GET"])
 def get_user_posts(id):
+    """
+        Retrieves all post made by the user with id, id.
+
+        Parameters
+        --------------
+        id: int
+            Id of the users to retrieve post for.
+        
+        Return
+        --------------
+        json: JSON
+            HTTP response with the posts made by user with id, id.
+    """
 
     user=db.session.get(User, id)
 
@@ -116,6 +158,19 @@ def get_user_posts(id):
 
 @app.route("/api/users/<id>/saved_post/", methods=["POST"])
 def add_user_saved_post(id):
+    """
+        Add a post to the saved post for the user with id, id.
+
+        Parameter
+        ------------
+        id: int
+            Id of the user to save a post for
+        
+        Return
+        ------------
+        json: JSON
+            HTTP response specifying user with id, id saving post with a given post id.
+    """
 
     info= json.loads(request.data)
     post_id= info.get("post_id")
@@ -137,6 +192,19 @@ def add_user_saved_post(id):
 
 @app.route("/api/users/<id>/saved_post/", methods=["GET"])
 def get_user_saved_post(id):
+    """
+        Retrieve all the saved post associated with the user with id, id.
+
+        Parameters
+        -------------
+        id:int
+            Id of the user 
+        
+        Returns
+        -------------
+        json: JSON
+            HTTP response with all the post user with id, id saved.
+    """
     
     user_saved_post= SavedPost.query.filter(SavedPost.user_id==id)
     serialized_saved_post=[]
@@ -147,6 +215,14 @@ def get_user_saved_post(id):
 
 @app.route("/api/mealplan/", methods=["POST"])
 def add_mealplan():
+    """
+        Add a mealplan 
+
+        Returns
+        ----------
+        json: JSON
+            HTTP response with information on the added mealplan.
+    """
     
     info=json.loads(request.data)
     user_id= info.get("user_id")
@@ -188,6 +264,19 @@ def add_mealplan():
 
 @app.route("/api/mealplan/<id>/", methods=["POST"])
 def update_user_mealplan(id):
+    """
+        Update the mealplan with id, id
+
+        Parameters
+        ------------
+        id: int
+            Id of the mealplan to update
+        
+        Returns
+        ------------
+        json: JSON
+            HTTP response with the updated information for the mealplan with id, id
+    """
     
     info=json.loads(request.data)
     breakfast_id= info.get("breakfast_id")
@@ -227,6 +316,19 @@ def update_user_mealplan(id):
     
 @app.route("/api/mealplan/<id>/", methods=["GET"])
 def get_mealplan(id):
+    """
+        Retrieve the mealplan with id, id
+
+        Parameters
+        -------------
+        id: int
+            id of the mealplan to retrieve
+        
+        Returns
+        -------------
+        json: JSON
+            HTTP response with the information of the mealplan with id, id.
+    """
     
     mealplan= MealPlan.query.filter(MealPlan.id==id).first()
 
@@ -237,6 +339,19 @@ def get_mealplan(id):
 
 @app.route("/api/users/<id>/mealplan/", methods=["GET"])
 def get_user_currweek_mealplan(id):
+    """
+        Retrieves the mealplan for the current week
+
+        Parameters
+        -------------
+        id: int
+            User id
+        
+        Returns
+        -------------
+        json: JSON
+            HTTP response with the mealplans for the user for the current week.
+    """
     
     today= datetime.date.today()
     start_of_week = today - datetime.timedelta(days=today.weekday()+1)
@@ -259,6 +374,14 @@ def get_user_currweek_mealplan(id):
 
 @app.route("/api/posts/", methods=["POST"])
 def add_post():
+    """
+        Add a post
+
+        Returns
+        ----------
+        json: JSON
+            HTTP response with information on the added post.
+    """
     info=json.loads(request.data)
     title= info.get("title")
     description= info.get("description")
@@ -281,6 +404,14 @@ def add_post():
 
 @app.route("/api/posts/", methods=["GET"])
 def get_all_post():
+    """
+        Retrieve all posts
+
+        Returns
+        -----------
+        json: JSON
+            HTTP response with information on all posts.
+    """
     all_post=[]
 
     for post in Post.query.all():
