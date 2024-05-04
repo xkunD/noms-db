@@ -18,4 +18,4 @@ Information on routes can be found at: https://github.com/Henry262799/noms-db/bl
 
 ## Deployment
 
-A docker image for noms-db can be found at https://hub.docker.com/repository/docker/henry262799/noms/general and the database runs on google cloud platform.
+A docker image for noms-db can be found at https://shorturl.at/xVY45 and the database runs on google cloud platform.
