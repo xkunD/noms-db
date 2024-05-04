@@ -37,7 +37,6 @@ class User(db.Model):
             'profile_pic': self.profile_pic
         }
 
-
 class Post(db.Model):
     """
         ORM model for a Post.
