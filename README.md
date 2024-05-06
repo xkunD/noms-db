@@ -28,7 +28,7 @@ Tables:
 
 ## Routes
 
-Information on routes can be found at: https://github.com/Henry262799/noms-db/blob/main/api-spec.md 
+Information on routes can be found at: https://github.com/xkunD/noms-db/blob/main/api-spec.md 
 
 ## Deployment
 
