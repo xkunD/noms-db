@@ -4,7 +4,7 @@ NOMS: Curate your weekly mealplan with inspiration from your friends and communi
 
 ## Contributors
 Backend:
-- Henry
+- Henry Chen
 - Xiaokun Du
 - Kevin Huang
 
