@@ -2,6 +2,11 @@
 
 NOMS: Curate your weekly mealplan with inspiration from your friends and community!
 
+## Contributors:
+- Henry Chen
+- Xiaokun Du
+- Kevin Huang
+  
 ## Description
 
 Noms-db is a backend constructed using sqlite3 and leverages SQLAlchemy ORM for sql operations.
